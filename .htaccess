@@ -1,0 +1,8 @@
+RewriteEngine On
+
+# If the requested filename exists, use it directly
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# Redirect all other requests to index.php, preserving the original query string and appending 'my-app-path'
+RewriteRule ^(.*)$ ./public/index.php?my-app-path=$1 [NC,L,QSA]
