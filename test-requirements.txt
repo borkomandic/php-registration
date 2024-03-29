@@ -1,0 +1,17 @@
+The given code needs to be refactored without using a ready-made framework solution. The refactoring should utilize patterns and S.O.L.I.D principles.
+
+Additional requirements:
+
+The Validator system needs to be extended to support the following checks:
+
+- Whether the email address already exists in the system?
+- Whether MaxMind, an external system for detecting fraud, returns a positive or negative result for the user's email and IP address? A positive result means that registration is not possible. (Note: There's no need to implement an actual connection with MaxMind, just simulate it)
+- It should be possible to pass SQL expressions in select, insert, and update queries. Examples are:
+
+The INSERT query should be able to set the value of the field posted to NOW()
+
+The WHERE part of the query should be able to have a condition posted > NOW() - INTERVAL 10 DAY
+
+
+
+
