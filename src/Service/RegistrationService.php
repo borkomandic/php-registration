@@ -33,6 +33,10 @@ class RegistrationService
         }
 
         $userId = $this->userRepository->insertUser($email, $password);
+
+
+        dd($userId);
+
         $this->userRepository->insertUserLog($userId, 'register');
 
         return ['success' => true, 'userId' => $userId];

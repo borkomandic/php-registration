@@ -4,7 +4,13 @@ namespace App\Service\Validation;
 
 class EmailValidator implements ValidatorInterface
 {
+    private $field = 'email';
     private $errorMessage = '';
+
+    public function getField(): string
+    {
+        return $this->field;
+    }
 
     public function validate($value, array $context = []): bool
     {
@@ -14,7 +20,7 @@ class EmailValidator implements ValidatorInterface
         $isNotFraudulent = true; // Simulate MaxMind check.
 
         if (!$isEmailValid || !$isNotFraudulent) {
-            $this->errorMessage = 'Invalid email or email flagged by MaxMind.';
+            $this->errorMessage = 'email_format';
             return false;
         }
 

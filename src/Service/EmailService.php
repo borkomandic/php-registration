@@ -7,9 +7,9 @@ class EmailService
     public function sendWelcomeEmail($toEmail, $name)
     {
         // Placeholder for email sending logic
-        $subject = 'Welcome to Our Application';
-        $message = "Hello " . $name . ", welcome to our application.";
-        $headers = 'From: no-reply@example.com' . "\r\n" .
+        $subject = 'Dobro došli';
+        $message = "$name, dobro dosli na nas sajt. Potrebno je samo da potvrdite email adresu ...";
+        $headers = 'From: adm@kupujemprodajem.com' . "\r\n" .
             'Reply-To: no-reply@example.com' . "\r\n" .
             'X-Mailer: PHP/' . phpversion();
 

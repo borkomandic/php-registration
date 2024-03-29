@@ -4,7 +4,13 @@ namespace App\Service\Validation;
 
 class PasswordValidator implements ValidatorInterface
 {
+    private $field = 'password';
     private $errorMessage = '';
+
+    public function getField(): string
+    {
+        return $this->field;
+    }
 
     public function validate($value, array $context = []): bool
     {
