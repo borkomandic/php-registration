@@ -22,6 +22,7 @@ class UserRepository
     public function insertUser(string $email, string $password)
     {
         $link = Database::getInstance();
+
         $stmt = $link->prepare("INSERT INTO user (email, password) VALUES (?, ?)");
         $stmt->bind_param("ss", $email, $password);
         $stmt->execute();

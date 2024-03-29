@@ -11,7 +11,7 @@ class Database
     public static function getInstance(): mysqli
     {
         if (self::$instance === null) {
-            self::$instance = new mysqli("db", "my_user", "my_password", "my_db");
+            self::$instance = new mysqli($_ENV['MYSQL_HOST'], $_ENV['MYSQL_USER'], $_ENV['MYSQL_PASSWORD'], $_ENV['MYSQL_DATABASE']);
             if (self::$instance->connect_error) {
                 die("Connection failed: " . self::$instance->connect_error);
             }

@@ -6,7 +6,6 @@ use App\Service\Validation\ValidatorComposite;
 use App\Service\Validation\EmailValidator;
 use App\Service\Validation\PasswordValidator;
 use App\Repository\UserRepository;
-use App\Utils\Database;
 
 class RegistrationService
 {
@@ -33,9 +32,6 @@ class RegistrationService
         }
 
         $userId = $this->userRepository->insertUser($email, $password);
-
-
-        dd($userId);
 
         $this->userRepository->insertUserLog($userId, 'register');
 
