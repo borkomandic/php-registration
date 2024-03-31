@@ -4,6 +4,7 @@ namespace App\Service;
 
 use App\Service\Validation\ValidatorComposite;
 use App\Service\Validation\EmailValidator;
+use App\Service\Validation\MaxMindValidator;
 use App\Service\Validation\PasswordValidator;
 use App\Repository\UserRepository;
 
@@ -17,6 +18,7 @@ class RegistrationService
         $this->userRepository = new UserRepository();
         $this->validator = new ValidatorComposite([
             new EmailValidator(),
+            new MaxMindValidator(),
             new PasswordValidator(),
         ]);
     }
