@@ -56,7 +56,8 @@ Contains the application logic, structured into models, controllers, services, r
 - `RegistrationService.php`: Orchestrates the registration process, utilizing validators and repositories.
 - Validation/:
   - `ValidatorInterface.php`: Defines the contract for validators.
-  - `EmailValidator.php`: Validates email addresses, including uniqueness and external checks (e.g., MaxMind simulation).
+  - `EmailValidator.php`: Validates email addresses on the basic level.
+  - `MaxMindValidator.php`: Validates email addresses, including uniqueness and external checks via Maxmind.
   - `PasswordValidator.php`: Validates password rules and matches.
   - `ValidatorComposite.php`: Combines multiple validators into a single composite validator.
 
@@ -85,13 +86,12 @@ Contains the public entry point to the application.
 ## Installation
 
 1. Clone the repository.
-2. Run `composer install` to install dependencies and set up autoloading.
-3. Configure your web server to serve the `public/` directory as the document root.
-4. Adjust `src/Utils/Database.php` with your database connection details.
+2. Run `docker compose up` from within the cloned folder. Composer dependencies will 
+install automatically from en entrypoint script of apache.
 
 ## Usage
 
-Navigate to the public URL configured in your web server to access the registration system. The application expects POST requests with `email`, `password`, and `password2` parameters for user registration.
+Navigate to localhost/registration. The application expects POST requests with `email`, `password`, and `password2` parameters for user registration.
 
 ## Extending the System
 
@@ -99,25 +99,23 @@ Navigate to the public URL configured in your web server to access the registrat
 - Extend `UserRepository` for additional database operations as needed.
 - Add new models in the `Model/` directory for other entities.
 
-## Contribution Guidelines
-
-Contributions are welcome. Please follow the existing project structure and coding standards when adding new features or fixing bugs.
-
-
 ## Environment Configuration
 
 This project uses environmental variables for configuration settings such as database connections. To set up your environment variables:
 
-1. Copy the `.env.example` file to a new file named `.env` in your project root.
-2. Edit the `.env` file to include your specific configuration values, such as database credentials.
+- Edit the `.env` file to include your specific configuration values, such as MaxMind credentials & settings.
 
 ### Example .env File
 
 ```plaintext
-DB_HOST=db
-DB_USER=my_user
-DB_PASSWORD=my_password
-DB_NAME=my_db
+MYSQL_HOST=db
+MYSQL_ROOT_PASSWORD=my_secret_password
+MYSQL_DATABASE=my_db
+MYSQL_USER=my_user
+MYSQL_PASSWORD=my_password
+MAX_MIND_ID=994378
+MAX_MIND_KEY=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
+MAX_MIND_RISK_LIMIT=50
 ```
 
-Remember to add `.env` to your `.gitignore` file to prevent sensitive information from being exposed publicly.
+Consider adding `.env` to your `.gitignore` file to prevent sensitive information from being exposed publicly.
