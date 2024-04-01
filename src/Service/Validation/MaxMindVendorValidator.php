@@ -5,7 +5,7 @@ namespace App\Service\Validation;
 use Exception;
 use MaxMind\MinFraud;
 
-class MaxMindValidator implements ValidatorInterface
+class MaxMindVendorValidator implements ValidatorInterface
 {
     private $field = 'email';
     private $errorMessage = '';

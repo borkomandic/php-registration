@@ -2,9 +2,10 @@
 
 namespace App\Service;
 
+use App\Service\Validation\MaxMindCustomValidator;
 use App\Service\Validation\ValidatorComposite;
 use App\Service\Validation\EmailValidator;
-use App\Service\Validation\MaxMindValidator;
+use App\Service\Validation\MaxMindVendorValidator;
 use App\Service\Validation\PasswordValidator;
 use App\Repository\UserRepository;
 
@@ -16,11 +17,16 @@ class RegistrationService
     public function __construct()
     {
         $this->userRepository = new UserRepository();
-        $this->validator = new ValidatorComposite([
+
+        $validatorsToUse = [
             new EmailValidator(),
-            new MaxMindValidator(),
             new PasswordValidator(),
-        ]);
+        ];
+
+        if ($_ENV['MAX_MIND_CUSTOM_VALIDATOR_ENABLED']) $validatorsToUse[] = new MaxMindCustomValidator();
+        if ($_ENV['MAX_MIND_VENDOR_VALIDATOR_ENABLED']) $validatorsToUse[] = new MaxMindVendorValidator();
+
+        $this->validator = new ValidatorComposite($validatorsToUse);
     }
 
     public function registerUser($email, $password, $password2)
