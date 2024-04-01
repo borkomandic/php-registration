@@ -18,7 +18,10 @@ class MaxMindValidator implements ValidatorInterface
     public function validate($value, array $context = []): bool
     {
         // TODO: remove all sandbox stuff, before going to production
+
+        // sanbox minfroud object
         //$mf = new MinFraud($_ENV['MAX_MIND_ID'], $_ENV['MAX_MIND_KEY'], ['host' => 'sandbox.maxmind.com']);
+
         $mf = new MinFraud($_ENV['MAX_MIND_ID'], $_ENV['MAX_MIND_KEY']);
         $ipAddress = $_SERVER['REMOTE_ADDR'];
 
