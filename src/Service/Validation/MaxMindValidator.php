@@ -19,7 +19,8 @@ class MaxMindValidator implements ValidatorInterface
     {
         // TODO: remove all sandbox stuff, before going to production
         //$mf = new MinFraud($_ENV['MAX_MIND_ID'], $_ENV['MAX_MIND_KEY'], ['host' => 'sandbox.maxmind.com']);
-        $mf = new MinFraud($_ENV['MAX_MIND_ID'], $_ENV['MAX_MIND_KEY']);
+        $mf = new MinFraud($_ENV['MAX_MIND_ID'], $_ENV['MAX_MIND_KEY'], ['host' => 'localhost/minfraud/']);
+        //$mf = new MinFraud($_ENV['MAX_MIND_ID'], $_ENV['MAX_MIND_KEY']);
         $ipAddress = $_SERVER['REMOTE_ADDR'];
 
         // Sandbox testing for score 40-90
@@ -47,6 +48,8 @@ class MaxMindValidator implements ValidatorInterface
             'address' => $address,
             'domain' => $domain,
         ]);
+
+        $scoreResponse = $request->score();
 
         try {
             $scoreResponse = $request->score();

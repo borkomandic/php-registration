@@ -7,8 +7,10 @@ services:
       context: ./docker/apache
     ports:
       - "80:80"
+      - "443:443"  # Expose HTTPS port
     volumes:
       - ./:/var/www/html/
+      - ./docker/apache/ssl:/etc/apache2/ssl  # Mount SSL certificates directory
     working_dir: /var/www/html
     environment:
       APACHE_DOCUMENT_ROOT: /var/www/html

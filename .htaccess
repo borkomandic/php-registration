@@ -1,5 +1,11 @@
 RewriteEngine On
 
+# Catch all requests starting with /minfraud/ and rewrite to ./maxmind-simulator/index.php
+RewriteRule ^minfraud/(.*)$ ./maxmind-simulator/index.php?my-app-path=/minfraud/$1 [NC,L,QSA]
+
+# Exclude requests that have already been rewritten to /minfraud/
+RewriteCond %{REQUEST_URI} !^/minfraud/
+
 # If the requested filename exists, use it directly
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
