@@ -48,6 +48,7 @@ class MaxMindValidator implements ValidatorInterface
             'domain' => $domain,
         ]);
 
+        // in case max mind authentication fails...
         try {
             $scoreResponse = $request->score();
         } catch (Exception $e) {
