@@ -93,6 +93,19 @@ install automatically from en entrypoint script of apache.
 
 Navigate to localhost/registration. The application expects POST requests with `email`, `password`, and `password2` parameters for user registration.
 
+## Sandbox Testing
+
+To perform sandbox run of MaxMind verification:
+
+1. Use `sandbox.maxmind.com` for your MaxMind requests.
+- For `MaxMindVendorValidator.php` use `$mf = new MinFraud($_ENV['MAX_MIND_ID'], $_ENV['MAX_MIND_KEY'], ['host' => 'sandbox.maxmind.com'])`
+- For `MaxMindCustomValidator.php` no changes required, just change api url domain in `.env`
+
+2. Use hardcoded IPs for different MaxMind scores.
+- `128.101.101.101`: for score 40-90
+- `74.209.24.1`: for score 5-39.99
+- `65.116.3.80`: for score 0.01-4.99
+
 ## Extending the System
 
 - Implement additional validators by creating new classes that implement `ValidatorInterface` and adding them to the `ValidatorComposite` in `RegistrationService`.
@@ -113,9 +126,12 @@ MYSQL_ROOT_PASSWORD=my_secret_password
 MYSQL_DATABASE=my_db
 MYSQL_USER=my_user
 MYSQL_PASSWORD=my_password
+MAX_MIND_CUSTOM_VALIDATOR_ENABLED=0
+MAX_MIND_VENDOR_VALIDATOR_ENABLED=0
 MAX_MIND_ID=994378
 MAX_MIND_KEY=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
 MAX_MIND_RISK_LIMIT=50
+MAX_MIND_SCORE_API_URL=https://minfraud.maxmind.com/minfraud/v2.0/score
 ```
 
 Consider adding `.env` to your `.gitignore` file to prevent sensitive information from being exposed publicly.

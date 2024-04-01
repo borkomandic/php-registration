@@ -17,27 +17,12 @@ class MaxMindVendorValidator implements ValidatorInterface
 
     public function validate($value, array $context = []): bool
     {
-        // TODO: remove all sandbox stuff, before going to production
-
-        // sanbox minfroud object
-        //$mf = new MinFraud($_ENV['MAX_MIND_ID'], $_ENV['MAX_MIND_KEY'], ['host' => 'sandbox.maxmind.com']);
-
         $mf = new MinFraud($_ENV['MAX_MIND_ID'], $_ENV['MAX_MIND_KEY']);
         $ipAddress = $_SERVER['REMOTE_ADDR'];
-
-        // Sandbox testing for score 40-90
-        //$ipAddress = '128.101.101.101';
-
-        // Sandbox testing for score 5-39.99
-        //$ipAddress = '74.209.24.1';
-
-        // Sandbox testing for score 0.01-4.99
-        //$ipAddress = '65.116.3.80';
-
         $userAgent = $_SERVER['HTTP_USER_AGENT'];
         $time = gmdate('Y-m-d\TH:i:s\Z');
         $type = 'account_creation';
-        $address = $context['email'];
+        $address = $value;
         $domain = explode('@', $address)[1];
 
         $request = $mf->withDevice([
