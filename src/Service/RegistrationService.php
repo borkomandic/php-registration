@@ -6,7 +6,6 @@ use App\Service\Validation\ValidatorComposite;
 use App\Service\Validation\EmailValidator;
 use App\Service\Validation\MaxMindValidator;
 use App\Service\Validation\PasswordValidator;
-use App\Service\EmailService;
 use App\Repository\UserRepository;
 
 class RegistrationService
