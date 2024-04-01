@@ -6,6 +6,7 @@ use App\Service\Validation\ValidatorComposite;
 use App\Service\Validation\EmailValidator;
 use App\Service\Validation\MaxMindValidator;
 use App\Service\Validation\PasswordValidator;
+use App\Service\EmailService;
 use App\Repository\UserRepository;
 
 class RegistrationService
@@ -36,6 +37,9 @@ class RegistrationService
         $userId = $this->userRepository->insertUser($email, $password);
 
         $this->userRepository->insertUserLog($userId, 'register');
+
+        $emailService = new EmailService();
+        $emailService->sendWelcomeEmail($email);
 
         return ['success' => true, 'userId' => $userId];
     }
