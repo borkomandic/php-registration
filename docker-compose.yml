@@ -14,8 +14,7 @@ services:
       APACHE_DOCUMENT_ROOT: /var/www/html
     networks:
       - kp-test-network
-    command:
-      - apache2-foreground
+    entrypoint: /usr/local/bin/entrypoint.sh
 
   db:
     container_name: kp-test-db

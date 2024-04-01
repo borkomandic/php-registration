@@ -8,4 +8,5 @@ RUN apt-get update && apt-get install -y \
 
 RUN a2enmod rewrite
 
-RUN composer install
+COPY entrypoint.sh /usr/local/bin/entrypoint.sh
+RUN chmod +x /usr/local/bin/entrypoint.sh
