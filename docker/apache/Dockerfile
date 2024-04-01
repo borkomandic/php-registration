@@ -7,3 +7,5 @@ RUN apt-get update && apt-get install -y \
   && docker-php-ext-install zip
 
 RUN a2enmod rewrite
+
+RUN composer install
