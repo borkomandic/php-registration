@@ -3,8 +3,6 @@
 namespace App\Service\Validation;
 
 use App\Service\RestClientService;
-use Exception;
-use MaxMind\MinFraud;
 
 class MaxMindCustomValidator implements ValidatorInterface
 {
@@ -23,7 +21,8 @@ class MaxMindCustomValidator implements ValidatorInterface
         $time = gmdate('Y-m-d\TH:i:s\Z');
         $type = 'account_creation';
         $address = $value;
-        $domain = explode('@', $address)[1];
+        $parts = explode('@', $address);
+        $domain = $parts[1] ?? '';
 
         $restClient = new RestClientService($_ENV['MAX_MIND_ID'], $_ENV['MAX_MIND_KEY']);
 

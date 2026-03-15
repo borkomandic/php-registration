@@ -2,7 +2,7 @@
 
 namespace App\Service\Validation;
 
-class ValidatorComposite implements ValidatorInterface
+class ValidatorComposite
 {
     private $validators;
     private $errorMessage;

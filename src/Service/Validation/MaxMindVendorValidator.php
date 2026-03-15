@@ -23,7 +23,8 @@ class MaxMindVendorValidator implements ValidatorInterface
         $time = gmdate('Y-m-d\TH:i:s\Z');
         $type = 'account_creation';
         $address = $value;
-        $domain = explode('@', $address)[1];
+        $parts = explode('@', $address);
+        $domain = $parts[1] ?? '';
 
         $request = $mf->withDevice([
             'ip_address' => $ipAddress,

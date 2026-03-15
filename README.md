@@ -1,7 +1,13 @@
 
 # PHP User Registration System
 
-This project implements a user registration system in PHP, following the S.O.L.I.D principles for object-oriented design and using Composer for class autoloading with PSR-4. It demonstrates a basic yet extendable architecture without relying on a full-fledged framework.
+This project implements a user registration system in PHP without relying on a full-fledged framework. It demonstrates a basic yet extendable architecture built around the following features:
+
+- **S.O.L.I.D OOP design** — clean separation of concerns across controllers, services, repositories, and models
+- **Composable validation pipeline** — validators implement a common interface and are combined via the Composite pattern, making it easy to add or remove validation rules
+- **MaxMind MinFraud fraud detection** — optional email risk scoring via two interchangeable integrations: the official `maxmind/minfraud` Composer package and a custom HTTP client implementation
+- **PSR-4 autoloading** — class autoloading managed by Composer, no manual requires
+- **Dockerized environment** — Apache + MySQL + Adminer, up and running with a single `docker compose up`
 
 ## Project Structure
 
@@ -12,16 +18,19 @@ project-root/
 │   │   └── RegistrationController.php
 │   │
 │   ├── Model/
-│   │   ├── User.php (Not implemented in examples)
-│   │   └── UserLog.php (Not implemented in examples)
+│   │   ├── User.php
+│   │   └── UserLog.php
 │   │
 │   ├── Service/
-│   │   ├── EmailService.php (Not implemented in examples)
+│   │   ├── EmailService.php
 │   │   ├── RegistrationService.php
+│   │   ├── RestClientService.php
 │   │   └── Validation/
 │   │       ├── ValidatorInterface.php
 │   │       ├── EmailValidator.php
 │   │       ├── PasswordValidator.php
+│   │       ├── MaxMindVendorValidator.php
+│   │       ├── MaxMindCustomValidator.php
 │   │       └── ValidatorComposite.php
 │   │
 │   ├── Repository/
@@ -48,17 +57,20 @@ Contains the application logic, structured into models, controllers, services, r
 
 #### Model/
 
-- `User.php`: Represents the user entity (not detailed here).
-- `UserLog.php`: Represents the user log entity (not detailed here).
+- `User.php`: Represents the user entity with id, email, and password fields.
+- `UserLog.php`: Represents the user log entity with id, userId, action, and logTime fields.
 
 #### Service/
 
 - `RegistrationService.php`: Orchestrates the registration process, utilizing validators and repositories.
+- `EmailService.php`: Sends a welcome email to the user upon successful registration.
+- `RestClientService.php`: A generic HTTP client (GET/POST) with optional Basic Auth support, used by MaxMindCustomValidator.
 - Validation/:
   - `ValidatorInterface.php`: Defines the contract for validators.
   - `EmailValidator.php`: Validates email addresses on the basic level.
-  - `MaxMindValidator.php`: Validates email addresses, including uniqueness and external checks via Maxmind.
   - `PasswordValidator.php`: Validates password rules and matches.
+  - `MaxMindVendorValidator.php`: Validates email addresses against MaxMind using the official `maxmind/minfraud` Composer package.
+  - `MaxMindCustomValidator.php`: Validates email addresses against MaxMind using a direct HTTP call via `RestClientService`.
   - `ValidatorComposite.php`: Combines multiple validators into a single composite validator.
 
 #### Repository/
@@ -128,8 +140,8 @@ MYSQL_USER=my_user
 MYSQL_PASSWORD=my_password
 MAX_MIND_CUSTOM_VALIDATOR_ENABLED=0
 MAX_MIND_VENDOR_VALIDATOR_ENABLED=0
-MAX_MIND_ID=994378
-MAX_MIND_KEY=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
+MAX_MIND_ID=000000
+MAX_MIND_KEY=YOUR_MAX_MIND_LICENSE_KEY
 MAX_MIND_RISK_LIMIT=50
 MAX_MIND_SCORE_API_URL=https://minfraud.maxmind.com/minfraud/v2.0/score
 ```
