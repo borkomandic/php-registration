@@ -1,13 +1,7 @@
 
 # PHP User Registration System
 
-This project implements a user registration system in PHP without relying on a full-fledged framework. It demonstrates a basic yet extendable architecture built around the following features:
-
-- **S.O.L.I.D OOP design** — clean separation of concerns across controllers, services, repositories, and models
-- **Composable validation pipeline** — validators implement a common interface and are combined via the Composite pattern, making it easy to add or remove validation rules
-- **MaxMind MinFraud fraud detection** — optional email risk scoring via two interchangeable integrations: the official `maxmind/minfraud` Composer package and a custom HTTP client implementation
-- **PSR-4 autoloading** — class autoloading managed by Composer, no manual requires
-- **Dockerized environment** — Apache + MySQL + Adminer, up and running with a single `docker compose up`
+This project is a quick demonstration on how to implements a user registration system in PHP, following the SOLID principles for OOP design, Composer for class autoloading with PSR-4 and convenient dockerized localhost environment. It demonstrates a basic yet extendable architecture without relying on a full-fledged framework.
 
 ## Project Structure
 
@@ -141,7 +135,7 @@ MYSQL_PASSWORD=my_password
 MAX_MIND_CUSTOM_VALIDATOR_ENABLED=0
 MAX_MIND_VENDOR_VALIDATOR_ENABLED=0
 MAX_MIND_ID=000000
-MAX_MIND_KEY=YOUR_MAX_MIND_LICENSE_KEY
+MAX_MIND_KEY=XXXXXX_XXXXXXXXXXXXXXXXXXXXXXXXXXXXX_XXX
 MAX_MIND_RISK_LIMIT=50
 MAX_MIND_SCORE_API_URL=https://minfraud.maxmind.com/minfraud/v2.0/score
 ```
