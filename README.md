@@ -1,7 +1,7 @@
 
 # PHP User Registration System
 
-This project implements a user registration system in PHP, following the S.O.L.I.D principles for object-oriented design and using Composer for class autoloading with PSR-4. It demonstrates a basic yet extendable architecture without relying on a full-fledged framework.
+This project is a quick demonstration on how to implements a user registration system in PHP, following the SOLID principles for OOP design, Composer for class autoloading with PSR-4 and convenient dockerized localhost environment. It demonstrates a basic yet extendable architecture without relying on a full-fledged framework.
 
 ## Project Structure
 
